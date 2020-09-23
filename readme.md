@@ -4,7 +4,8 @@
 #### This program compares two configuration files and shows a difference.
 
 
-Data comparing the example of two .json files
-https://asciinema.org/a/96rRSMSaS4WdSUKUMr389L2nC
+Data comparing example of two .json files: 
+
+[![asciicast](https://asciinema.org/a/96rRSMSaS4WdSUKUMr389L2nC.svg)](https://asciinema.org/a/96rRSMSaS4WdSUKUMr389L2nC)
 
 

@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
-// Уточнить подсказки в уроке;
 
 const readFile = (response) => {
   const absolutePath = path.resolve(process.cwd(), response);

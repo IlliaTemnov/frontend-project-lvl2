@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "Compares two configuration files and shows a difference.",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "bin": {
     "gendiff": "./bin/gendiff.js"
   },
@@ -25,11 +22,12 @@
     "lodash": "^4.17.20"
   },
   "devDependencies": {
-    "@babel/plugin-syntax-import-meta": "^7.10.4",
     "@jest/globals": "^26.4.2",
-    "eslint": "^7.9.0",
+    "eslint": "^7.10.0",
     "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-plugin-import": "^2.22.0",
-    "jest": "^26.4.2"
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.0.2",
+    "jest": "^26.4.2",
+    "jest-cli": "^26.4.2"
   }
 }

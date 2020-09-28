@@ -1,9 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
+// Уточнить подсказки в уроке;
 
 const readFile = (response) => {
-  if (!fs.statSync(response).isFile) { return null; }
   const absolutePath = path.resolve(process.cwd(), response);
   return fs.readFileSync(absolutePath, 'utf8');
 };

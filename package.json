@@ -7,13 +7,9 @@
     "gendiff": "./bin/gendiff.js"
   },
   "scripts": {
-    "test": "npx -n --experimental-vm-modules jest --watch"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "type": "module",
-  "jest": {
-    "testEnvironment": "node",
-    "transform": {}
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/IlliaTemnov/frontend-project-lvl2.git"
@@ -34,7 +30,6 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jest": "^24.0.2",
     "@jest/globals": "^26.4.2",
-    "jest": "^26.4.2",
-    "jest-cli": "^26.4.2"
+    "jest": "^26.4.2"
   }
 }

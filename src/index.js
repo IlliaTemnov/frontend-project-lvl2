@@ -1,14 +1,5 @@
-import fs from 'fs';
-import path from 'path';
 import _ from 'lodash';
-
-const readFile = (response) => {
-  const absolutePath = path.resolve(process.cwd(), response);
-  return fs.readFileSync(absolutePath, 'utf8');
-};
-
-const readExtName = (response) => path.extname(response);
-const parse = (data) => JSON.parse(data);
+import parsers from './parsers.js';
 
 const buildReportData = (dataOne, dataTwo) => {
   const firstKeys = Object.keys(dataOne);
@@ -31,8 +22,8 @@ const buildReportData = (dataOne, dataTwo) => {
 };
 
 export default (pathOne, pathTwo) => {
-  const dataOne = parse(readFile(pathOne), readExtName(pathOne));
-  const dataTwo = parse(readFile(pathTwo), readExtName(pathTwo));
+  const dataOne = parsers(pathOne);
+  const dataTwo = parsers(pathTwo);
   const reportData = buildReportData(dataOne, dataTwo);
   return reportData;
 };

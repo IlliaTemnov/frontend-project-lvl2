@@ -18,7 +18,7 @@ test('generate a difference of the json plane files', () => {
 });
 
 test('generate a difference of the yaml plane files', () => {
-  const pathOne = getFixturePath('1.yaml');
-  const pathTwo = getFixturePath('2.yaml');
+  const pathOne = getFixturePath('1.yml');
+  const pathTwo = getFixturePath('2.yml');
   expect(gendiff(pathOne, pathTwo)).toBe(result);
 });

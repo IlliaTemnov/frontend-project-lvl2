@@ -9,4 +9,8 @@ Data comparing example of two .json files:
 
 [![asciicast](https://asciinema.org/a/96rRSMSaS4WdSUKUMr389L2nC.svg)](https://asciinema.org/a/96rRSMSaS4WdSUKUMr389L2nC)
 
+Data comparing example of two .yml files:
+
+[![asciicast](https://asciinema.org/a/eYEPZTyfzezLyaaZ61kM3CYw4.svg)](https://asciinema.org/a/eYEPZTyfzezLyaaZ61kM3CYw4)
+
 

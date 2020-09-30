@@ -12,7 +12,7 @@ export default (response) => {
   const data = readFile(response);
   const parseOption = {
     '.json': JSON.parse,
-    '.yaml': yaml.safeLoad,
+    '.yml': yaml.safeLoad,
   };
   const result = parseOption[format](data);
   return result;

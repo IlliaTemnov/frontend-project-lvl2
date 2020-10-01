@@ -13,4 +13,6 @@ Data comparing example of two .yml files:
 
 [![asciicast](https://asciinema.org/a/eYEPZTyfzezLyaaZ61kM3CYw4.svg)](https://asciinema.org/a/eYEPZTyfzezLyaaZ61kM3CYw4)
 
+Data comparing example of two .ini files:
 
+[![asciicast](https://asciinema.org/a/e6vOtpcDt49ErUB8RmnzgfgIy.svg)](https://asciinema.org/a/e6vOtpcDt49ErUB8RmnzgfgIy)

@@ -18,5 +18,6 @@ export default (response) => {
     '.ini': flatini,
   };
   const result = parseOption[format](data);
+  console.log(result);
   return result;
 };

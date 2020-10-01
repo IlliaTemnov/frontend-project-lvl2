@@ -22,3 +22,9 @@ test('generate a difference of the yaml plane files', () => {
   const pathTwo = getFixturePath('2.yml');
   expect(gendiff(pathOne, pathTwo)).toBe(result);
 });
+
+test('generate a difference of the .ini plane files', () => {
+  const pathOne = getFixturePath('1.ini');
+  const pathTwo = getFixturePath('2.ini');
+  expect(gendiff(pathOne, pathTwo)).toBe(result);
+});

@@ -22,8 +22,10 @@
   "homepage": "https://github.com/IlliaTemnov/frontend-project-lvl2#readme",
   "dependencies": {
     "commander": "^6.1.0",
-    "lodash": "^4.17.20",
-    "js-yaml": "^3.14.0"
+    "flatini": "0.0.2",
+    "ini": "^1.3.5",
+    "js-yaml": "^3.14.0",
+    "lodash": "^4.17.20"
   },
   "devDependencies": {
     "eslint": "^7.10.0",

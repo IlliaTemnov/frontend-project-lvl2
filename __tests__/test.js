@@ -10,7 +10,6 @@ const __dirname = dirname(__filename);
 
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 const result = fs.readFileSync(getFixturePath('after.txt'), 'utf8');
-console.log(result);
 
 test('generate a difference of the .json tree files', () => {
   const pathOne = getFixturePath('1.json');

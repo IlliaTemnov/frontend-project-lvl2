@@ -14,15 +14,15 @@ const stringify = (data, depth) => {
 const genStylish = (compareData, depth = 0) => {
   const output = compareData.flatMap((unit) => {
     switch (unit.status) {
-      case 'node':
+      case 'complex value':
         return `${indent(depth)}    ${unit.name}: ${genStylish(unit.children, depth + 2)}`;
       case 'added':
         return `${indent(depth)}  + ${unit.name}: ${stringify(unit.value, depth)}`;
-      case 'deleted':
+      case 'removed':
         return `${indent(depth)}  - ${unit.name}: ${stringify(unit.value, depth)}`;
       case 'equal':
         return `${indent(depth)}    ${unit.name}: ${stringify(unit.value, depth)}`;
-      case 'changed': {
+      case 'updated': {
         const { name, value1, value2 } = unit;
         const data1 = `${indent(depth)}  - ${name}: ${stringify(value1, depth)}`;
         const data2 = `${indent(depth)}  + ${name}: ${stringify(value2, depth)}`;

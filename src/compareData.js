@@ -6,7 +6,7 @@ const compareData = (data1, data2) => {
     if (_.isObject(data1[key]) && _.isObject(data2[key])) {
       return {
         name: key,
-        status: 'node',
+        status: 'complex value',
         children: compareData(data1[key], data2[key]),
       };
     }
@@ -27,13 +27,13 @@ const compareData = (data1, data2) => {
     if (!_.has(data2, key)) {
       return {
         name: key,
-        status: 'deleted',
+        status: 'removed',
         value: data1[key],
       };
     }
     return {
       name: key,
-      status: 'changed',
+      status: 'updated',
       value1: data1[key],
       value2: data2[key],
     };

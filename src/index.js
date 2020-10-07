@@ -1,29 +1,10 @@
-import _ from 'lodash';
-import parsers from './parsers.js';
+import parse from './parsers.js';
+import compareData from './compareData.js';
+import genStylish from './stylish.js';
 
-const buildReportData = (dataOne, dataTwo) => {
-  const firstKeys = Object.keys(dataOne);
-  const secondKeys = Object.keys(dataTwo);
-  const bothFilesKeys = _.union(firstKeys, secondKeys).sort();
-  const result = bothFilesKeys.map((key) => {
-    if (dataOne[key] === dataTwo[key]) {
-      return `  ${key}: ${dataOne[key]}`;
-    }
-    if (!_.has(dataOne, key)) {
-      return `+ ${key}: ${dataTwo[key]}`;
-    }
-    if (!_.has(dataTwo, key)) {
-      return `- ${key}: ${dataOne[key]}`;
-    }
-    return `- ${key}: ${dataOne[key]}\n  + ${key}: ${dataTwo[key]}`;
-  });
-  const str = `{\n  ${result.join('\n  ')}\n}`;
-  return str;
-};
-
-export default (pathOne, pathTwo) => {
-  const dataOne = parsers(pathOne);
-  const dataTwo = parsers(pathTwo);
-  const reportData = buildReportData(dataOne, dataTwo);
-  return reportData;
+export default (path1, path2) => {
+  const data1 = parse(path1);
+  const data2 = parse(path2);
+  const result = compareData(data1, data2);
+  return genStylish(result);
 };

@@ -16,3 +16,7 @@ Data comparing example of two .yml files:
 Data comparing example of two .ini files:
 
 [![asciicast](https://asciinema.org/a/e6vOtpcDt49ErUB8RmnzgfgIy.svg)](https://asciinema.org/a/e6vOtpcDt49ErUB8RmnzgfgIy)
+
+Data comparing example of two .ini, .json, .yml files with tree structure:
+
+[![asciicast](https://asciinema.org/a/44XbO5ybZdvCQ34v2wS0kQuyI.svg)](https://asciinema.org/a/44XbO5ybZdvCQ34v2wS0kQuyI)

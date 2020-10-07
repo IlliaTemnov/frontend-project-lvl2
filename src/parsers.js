@@ -1,7 +1,7 @@
 import yaml from 'js-yaml';
 import fs from 'fs';
 import path from 'path';
-import flatini from 'flatini';
+import ini from 'ini';
 
 const readFile = (response) => {
   const absolutePath = path.resolve(process.cwd(), response);
@@ -15,7 +15,7 @@ export default (response) => {
     '.json': JSON.parse,
     '.yml': yaml.safeLoad,
     '.yaml': yaml.safeLoad,
-    '.ini': flatini,
+    '.ini': ini.parse,
   };
   const result = parseOption[format](data);
   return result;

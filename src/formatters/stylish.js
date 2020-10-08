@@ -11,8 +11,8 @@ const stringify = (data, depth) => {
   return `{\n${output.join('\n')}\n${indent(depth + 2)}}`;
 };
 
-const genStylish = (compareData, depth = 0) => {
-  const output = compareData.flatMap((unit) => {
+const genStylish = (comparedData, depth = 0) => {
+  const output = comparedData.flatMap((unit) => {
     switch (unit.status) {
       case 'complex value':
         return `${indent(depth)}    ${unit.name}: ${genStylish(unit.children, depth + 2)}`;

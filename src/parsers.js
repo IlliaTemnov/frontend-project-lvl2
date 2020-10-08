@@ -11,12 +11,12 @@ const readFile = (response) => {
 export default (response) => {
   const format = path.extname(response);
   const data = readFile(response);
-  const parseOption = {
+  const parse = {
     '.json': JSON.parse,
     '.yml': yaml.safeLoad,
     '.yaml': yaml.safeLoad,
     '.ini': ini.parse,
   };
-  const result = parseOption[format](data);
+  const result = parse[format](data);
   return result;
 };

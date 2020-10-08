@@ -17,6 +17,10 @@ Data comparing example of two .ini files:
 
 [![asciicast](https://asciinema.org/a/e6vOtpcDt49ErUB8RmnzgfgIy.svg)](https://asciinema.org/a/e6vOtpcDt49ErUB8RmnzgfgIy)
 
-Data comparing example of two .ini, .json, .yml files with tree structure:
+Data comparing example of two .ini, .json, .yml files with stylish formatter:
 
 [![asciicast](https://asciinema.org/a/44XbO5ybZdvCQ34v2wS0kQuyI.svg)](https://asciinema.org/a/44XbO5ybZdvCQ34v2wS0kQuyI)
+
+Data comparing example of two .json tree files with plain formatter:
+
+[![asciicast](https://asciinema.org/a/tsqdVutwqPrzOuoXaayX6DtPx.svg)](https://asciinema.org/a/tsqdVutwqPrzOuoXaayX6DtPx)

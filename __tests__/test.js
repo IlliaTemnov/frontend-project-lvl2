@@ -16,11 +16,11 @@ const getExpectResult = (value) => {
 };
 
 const extentions = ['.json', '.ini', '.yml'];
-const formats = ['plain', 'stylish'];
+const formats = ['plain', 'stylish', 'json'];
 
 _.forEach(extentions, (extention) => {
   _.forEach(formats, (format) => {
-    test(`generate a difference of the ${extention} tree files`, () => {
+    test(`Generate a difference of the ${extention} files`, () => {
       const path1 = getFixturePath(`1${extention}`);
       const path2 = getFixturePath(`2${extention}`);
       expect(gendiff(path1, path2, `${format}`)).toBe(getExpectResult(format));

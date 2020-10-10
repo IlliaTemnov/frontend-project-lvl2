@@ -9,14 +9,14 @@ const stringify = (value) => {
 const genPlain = (сomparedData, parent = '') => {
   const output = сomparedData.flatMap((unit) => {
     switch (unit.status) {
-      case 'equal':
-        return null;
       case 'complex value':
         return genPlain(unit.children, `${parent}${unit.name}.`);
       case 'added':
         return `Property '${parent}${unit.name}' was added with value: ${stringify(unit.value)}`;
       case 'removed':
         return `Property '${parent}${unit.name}' was removed`;
+      case 'equal':
+        return null;
       case 'updated':
         return `Property '${parent}${unit.name}' was updated. From ${stringify(unit.value1)} to ${stringify(unit.value2)}`;
       default:

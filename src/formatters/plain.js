@@ -7,20 +7,20 @@ const stringify = (value) => {
 };
 
 const genPlain = (сomparedData, parent = '') => {
-  const output = сomparedData.flatMap((unit) => {
-    switch (unit.status) {
+  const output = сomparedData.flatMap((node) => {
+    switch (node.status) {
       case 'complex value':
-        return genPlain(unit.children, `${parent}${unit.name}.`);
+        return genPlain(node.children, `${parent}${node.name}.`);
       case 'added':
-        return `Property '${parent}${unit.name}' was added with value: ${stringify(unit.value)}`;
+        return `Property '${parent}${node.name}' was added with value: ${stringify(node.value)}`;
       case 'removed':
-        return `Property '${parent}${unit.name}' was removed`;
+        return `Property '${parent}${node.name}' was removed`;
       case 'equal':
         return null;
       case 'updated':
-        return `Property '${parent}${unit.name}' was updated. From ${stringify(unit.value1)} to ${stringify(unit.value2)}`;
+        return `Property '${parent}${node.name}' was updated. From ${stringify(node.value1)} to ${stringify(node.value2)}`;
       default:
-        throw new Error(`Unexpected status ${unit.status}`);
+        throw new Error(`Unexpected status ${node.status}`);
     }
   });
   return output.filter((item) => item !== null).join('\n');

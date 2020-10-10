@@ -12,25 +12,24 @@ const stringify = (data, depth) => {
 };
 
 const genStylish = (comparedData, depth = 0) => {
-  const output = comparedData.flatMap((unit) => {
-    switch (unit.status) {
+  const output = comparedData.flatMap((node) => {
+    switch (node.status) {
       case 'complex value':
-        return `${indent(depth)}    ${unit.name}: ${genStylish(unit.children, depth + 2)}`;
+        return `${indent(depth)}    ${node.name}: ${genStylish(node.children, depth + 2)}`;
       case 'added':
-        return `${indent(depth)}  + ${unit.name}: ${stringify(unit.value, depth)}`;
+        return `${indent(depth)}  + ${node.name}: ${stringify(node.value, depth)}`;
       case 'removed':
-        return `${indent(depth)}  - ${unit.name}: ${stringify(unit.value, depth)}`;
+        return `${indent(depth)}  - ${node.name}: ${stringify(node.value, depth)}`;
       case 'equal':
-        return `${indent(depth)}    ${unit.name}: ${stringify(unit.value, depth)}`;
+        return `${indent(depth)}    ${node.name}: ${stringify(node.value, depth)}`;
       case 'updated': {
-        const { name, value1, value2 } = unit;
+        const { name, value1, value2 } = node;
         const data1 = `${indent(depth)}  - ${name}: ${stringify(value1, depth)}`;
         const data2 = `${indent(depth)}  + ${name}: ${stringify(value2, depth)}`;
         return [data1, data2];
       }
-
       default:
-        throw new Error(`Unexpected status ${unit.status}`);
+        throw new Error(`Unexpected status ${node.status}`);
     }
   });
 

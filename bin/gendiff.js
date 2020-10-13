@@ -9,5 +9,5 @@ program
   .arguments('<filepath1> <filepath2>')
   .action((path1, path2) => {
     console.log(genDiff(path1, path2, program.format));
-  });
-program.parse(process.argv);
+  })
+  .parse(process.argv);

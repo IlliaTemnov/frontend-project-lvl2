@@ -11,29 +11,32 @@ const stringify = (data, depth) => {
   return `{\n${output.join('\n')}\n${indent(depth + 2)}}`;
 };
 
-const genStylish = (comparedData, depth = 0) => {
-  const output = comparedData.flatMap((node) => {
-    switch (node.status) {
-      case 'complex value':
-        return `${indent(depth)}    ${node.name}: ${genStylish(node.children, depth + 2)}`;
-      case 'added':
-        return `${indent(depth)}  + ${node.name}: ${stringify(node.value, depth)}`;
-      case 'removed':
-        return `${indent(depth)}  - ${node.name}: ${stringify(node.value, depth)}`;
-      case 'equal':
-        return `${indent(depth)}    ${node.name}: ${stringify(node.value, depth)}`;
-      case 'updated': {
-        const { name, value1, value2 } = node;
-        const data1 = `${indent(depth)}  - ${name}: ${stringify(value1, depth)}`;
-        const data2 = `${indent(depth)}  + ${name}: ${stringify(value2, depth)}`;
-        return [data1, data2];
+const genStylishFormat = (diff) => {
+  const addDepth = (tree, depth) => {
+    const output = tree.flatMap((node) => {
+      switch (node.type) {
+        case 'nested':
+          return `${indent(depth)}    ${node.key}: ${addDepth(node.children, depth + 2)}`;
+        case 'added':
+          return `${indent(depth)}  + ${node.key}: ${stringify(node.value, depth)}`;
+        case 'removed':
+          return `${indent(depth)}  - ${node.key}: ${stringify(node.value, depth)}`;
+        case 'equal':
+          return `${indent(depth)}    ${node.key}: ${stringify(node.value, depth)}`;
+        case 'updated': {
+          const { key, value1, value2 } = node;
+          const data1 = `${indent(depth)}  - ${key}: ${stringify(value1, depth)}`;
+          const data2 = `${indent(depth)}  + ${key}: ${stringify(value2, depth)}`;
+          return [data1, data2];
+        }
+        default:
+          throw new Error(`Unexpected type ${node.type}`);
       }
-      default:
-        throw new Error(`Unexpected status ${node.status}`);
-    }
-  });
+    });
 
-  return `{\n${output.join('\n')}\n${indent(depth)}}`;
+    return `{\n${output.join('\n')}\n${indent(depth)}}`;
+  };
+  return addDepth(diff, 0);
 };
 
-export default genStylish;
+export default genStylishFormat;

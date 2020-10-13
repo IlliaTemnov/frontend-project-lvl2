@@ -1,12 +1,15 @@
 import _ from 'lodash';
 import stylish from './stylish.js';
 import plain from './plain.js';
-import json from './json.js';
 
-const formatOptions = { stylish, plain, json };
+const formatters = { stylish, plain };
+
 export default (format) => {
-  if (_.has(formatOptions, format)) {
-    return formatOptions[format];
+  if (format === 'json') {
+    return JSON.stringify;
   }
-  return null;
+  if (_.has(formatters, format)) {
+    return formatters[format];
+  }
+  throw new Error(`Unexpected format ${format}`);
 };

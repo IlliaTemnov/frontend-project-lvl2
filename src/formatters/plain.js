@@ -1,29 +1,29 @@
-import _ from 'lodash';
-
 const stringify = (value) => {
-  if (_.isObject(value)) return '[complex value]';
-  if (_.isString(value)) return `'${value}'`;
+  if (value !== null) {
+    if (typeof value === 'object') return '[complex value]';
+    if (typeof value === 'string') return `'${value}'`;
+  }
   return `${value}`;
 };
 
-const genPlain = (сomparedData, parent = '') => {
-  const output = сomparedData.flatMap((node) => {
-    switch (node.status) {
-      case 'complex value':
-        return genPlain(node.children, `${parent}${node.name}.`);
+const genPlainFormat = (diff, root = '') => {
+  const output = diff.flatMap((node) => {
+    switch (node.type) {
+      case 'nested':
+        return genPlainFormat(node.children, `${root}${node.key}.`);
       case 'added':
-        return `Property '${parent}${node.name}' was added with value: ${stringify(node.value)}`;
+        return `Property '${root}${node.key}' was added with value: ${stringify(node.value)}`;
       case 'removed':
-        return `Property '${parent}${node.name}' was removed`;
+        return `Property '${root}${node.key}' was removed`;
       case 'equal':
-        return null;
+        return [];
       case 'updated':
-        return `Property '${parent}${node.name}' was updated. From ${stringify(node.value1)} to ${stringify(node.value2)}`;
+        return `Property '${root}${node.key}' was updated. From ${stringify(node.value1)} to ${stringify(node.value2)}`;
       default:
-        throw new Error(`Unexpected status ${node.status}`);
+        throw new Error(`Unexpected type ${node.type}`);
     }
   });
-  return output.filter((item) => item !== null).join('\n');
+  return output.join('\n');
 };
 
-export default genPlain;
+export default genPlainFormat;

@@ -2,11 +2,29 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/71f8e550658aa9c68326/maintainability)](https://codeclimate.com/github/IlliaTemnov/frontend-project-lvl2/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/dd8340b2c6abdc94b4cc/test_coverage)](https://codeclimate.com/github/IlliaTemnov/frontend-project-lvl2/test_coverage)
 
-                                                   # GENDIFF
+##                                                    GENDIFF
 ------------------------------------------------------------------------------------------------------------------------
-Description
+Gendiff is a simply to use command-line program which compares two configuration files (.ini, .json, .yml) and shows
+a difference in the stylish, plain, or json output formats.
+
+### Installation
 ------------------------------------------------------------------------------------------------------------------------
-This program compares two configuration files (.ini, .json, .yml) and shows a difference in the stylish, plain or json formats.
+npm install gendiff
+
+### Usage
+------------------------------------------------------------------------------------------------------------------------
+gendiff [type] <filepath1> <filepath2>
+
+[type] - stylish, plain or json
+
+<filepath1> - path to the configuration file ( json, yml, ini)
+
+-v, --vers, output the current version
+-f, --format [type] Output format
+-h, --help output usage information
+
+### Examples
+------------------------------------------------------------------------------------------------------------------------
 
 Data comparing example of two plane .json files: 
 

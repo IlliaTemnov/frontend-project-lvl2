@@ -7,12 +7,12 @@
 Gendiff is a simply to use command-line program which compares two configuration files (.ini, .json, .yml) and shows
 a difference in the stylish, plain, or json output formats.
 
-### Installation
-***
+## Installation
+
 npm install gendiff
 
-### Usage
-***
+## Usage
+
 `gendiff [type] <filepath1> <filepath2>`
 
 `[type] - stylish, plain or json`
@@ -23,8 +23,7 @@ npm install gendiff
 `-f, --format [type] Output format`
 `-h, --help output usage information`
 
-### Examples
-***
+## Examples
 
 Data comparing example of two plane .json files: 
 

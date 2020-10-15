@@ -3,12 +3,12 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/dd8340b2c6abdc94b4cc/test_coverage)](https://codeclimate.com/github/IlliaTemnov/frontend-project-lvl2/test_coverage)
 
 ##                                                    GENDIFF
-------------------------------------------------------------------------------------------------------------------------
+
 Gendiff is a simply to use command-line program which compares two configuration files (.ini, .json, .yml) and shows
 a difference in the stylish, plain, or json output formats.
 
 ### Installation
-------------------------------------------------------------------------------------------------------------------------
+
 npm install gendiff
 
 ### Usage

@@ -13,11 +13,11 @@ npm install gendiff
 
 ## Usage
 
-`gendiff [type] <filepath1> <filepath2>`
+`gendiff -f [type] <filepath1> <filepath2>`
 
-`[type] - stylish, plain or json`
+`[type]` - stylish, plain or json
 
-`<filepath1> - path to the configuration file ( json, yml, ini)`
+`<filepath1>` - path to the configuration file ( json, yml, ini)
 
 * `-v, --vers, output the current version`                                                                                           
 * `-f, --format [type] Output format`                                                                                              

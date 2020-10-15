@@ -19,9 +19,9 @@ npm install gendiff
 
 `<filepath1> - path to the configuration file ( json, yml, ini)`
 
-`-v, --vers, output the current version`
-`-f, --format [type] Output format`
-`-h, --help output usage information`
+* `-v, --vers, output the current version`                                                                                           
+* `-f, --format [type] Output format`                                                                                              
+* `-h, --help output usage information`
 
 ## Examples
 

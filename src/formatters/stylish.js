@@ -11,9 +11,9 @@ const stringify = (data, depth) => {
   return `{\n${output.join('\n')}\n${indent(depth + 2)}}`;
 };
 
-const genStylishFormat = (diff) => {
-  const addDepth = (tree, depth) => {
-    const output = tree.flatMap((node) => {
+const genStylishFormat = (tree) => {
+  const addDepth = (subTree, depth) => {
+    const output = subTree.flatMap((node) => {
       switch (node.type) {
         case 'nested':
           return `${indent(depth)}    ${node.key}: ${addDepth(node.children, depth + 2)}`;
@@ -21,9 +21,9 @@ const genStylishFormat = (diff) => {
           return `${indent(depth)}  + ${node.key}: ${stringify(node.value, depth)}`;
         case 'removed':
           return `${indent(depth)}  - ${node.key}: ${stringify(node.value, depth)}`;
-        case 'equal':
+        case 'not changed':
           return `${indent(depth)}    ${node.key}: ${stringify(node.value, depth)}`;
-        case 'updated': {
+        case 'changed': {
           const { key, value1, value2 } = node;
           const data1 = `${indent(depth)}  - ${key}: ${stringify(value1, depth)}`;
           const data2 = `${indent(depth)}  + ${key}: ${stringify(value2, depth)}`;
@@ -36,7 +36,7 @@ const genStylishFormat = (diff) => {
 
     return `{\n${output.join('\n')}\n${indent(depth)}}`;
   };
-  return addDepth(diff, 0);
+  return addDepth(tree, 0);
 };
 
 export default genStylishFormat;

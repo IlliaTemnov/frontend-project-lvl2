@@ -11,24 +11,20 @@ const __dirname = dirname(__filename);
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 const getFileData = (value) => fs.readFileSync(getFixturePath(value), 'utf8');
 
-const jsonExpectedData = getFileData('expected_file_json');
-const plainExpectedData = getFileData('expected_file_plain');
-const stylishExpectedData = getFileData('expected_file_stylish');
-
 const extentions = ['json', 'ini', 'yml'];
-const formats = ['stylish', 'plain', 'json'];
-const expectedData = {
-  json: jsonExpectedData,
-  plain: plainExpectedData,
-  stylish: stylishExpectedData,
-};
 
-describe.each(extentions)('Data comparing of two configuration files, extention: %s', (extention) => {
-  test.each(formats)(
-    'output format: %s', (format) => {
+describe('Data comparing of two configuration files:', () => {
+  const jsonResult = getFileData('expected_file_json');
+  const plainResult = getFileData('expected_file_plain');
+  const stylishResult = getFileData('expected_file_stylish');
+  test.each(extentions)(
+    'output format: %s', (extention) => {
       const path1 = getFixturePath(`file1.${extention}`);
       const path2 = getFixturePath(`file2.${extention}`);
-      expect(gendiff(path1, path2, format)).toBe(expectedData[format]);
+      expect(gendiff(path1, path2)).toBe(stylishResult);
+      expect(gendiff(path1, path2, 'stylish')).toBe(stylishResult);
+      expect(gendiff(path1, path2, 'plain')).toBe(plainResult);
+      expect(gendiff(path1, path2, 'json')).toBe(jsonResult);
     },
   );
 });

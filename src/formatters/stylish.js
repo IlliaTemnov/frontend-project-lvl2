@@ -3,7 +3,7 @@ import _ from 'lodash';
 const indent = (depth, tab = '  ') => tab.repeat(depth);
 
 const stringify = (data, depth) => {
-  if (!_.isObject(data)) {
+  if (!_.isPlainObject(data)) {
     return data;
   }
   const output = _.map(data, (value, key) => `${indent(depth + 4)}${key}: ${stringify(value, depth + 2)}`);
@@ -12,21 +12,22 @@ const stringify = (data, depth) => {
 };
 
 const genStylishFormat = (tree) => {
-  const addDepth = (subTree, depth) => {
-    const output = subTree.flatMap((node) => {
+  const addDepth = (nodes, depth) => {
+    const shiftedDepth = depth + 1;
+    const output = nodes.flatMap((node) => {
       switch (node.type) {
         case 'nested':
-          return `${indent(depth)}    ${node.key}: ${addDepth(node.children, depth + 2)}`;
+          return `${indent(shiftedDepth)}  ${node.key}: ${addDepth(node.children, depth + 2)}`;
         case 'added':
-          return `${indent(depth)}  + ${node.key}: ${stringify(node.value, depth)}`;
+          return `${indent(shiftedDepth)}+ ${node.key}: ${stringify(node.value, depth)}`;
         case 'removed':
-          return `${indent(depth)}  - ${node.key}: ${stringify(node.value, depth)}`;
-        case 'not changed':
-          return `${indent(depth)}    ${node.key}: ${stringify(node.value, depth)}`;
+          return `${indent(shiftedDepth)}- ${node.key}: ${stringify(node.value, depth)}`;
+        case 'unchanged':
+          return `${indent(shiftedDepth)}  ${node.key}: ${stringify(node.value, depth)}`;
         case 'changed': {
           const { key, value1, value2 } = node;
-          const data1 = `${indent(depth)}  - ${key}: ${stringify(value1, depth)}`;
-          const data2 = `${indent(depth)}  + ${key}: ${stringify(value2, depth)}`;
+          const data1 = `${indent(shiftedDepth)}- ${key}: ${stringify(value1, depth)}`;
+          const data2 = `${indent(shiftedDepth)}+ ${key}: ${stringify(value2, depth)}`;
           return [data1, data2];
         }
         default:

@@ -9,14 +9,14 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
-const getFileData = (value) => fs.readFileSync(getFixturePath(value), 'utf8');
+const getFileData = (filename) => fs.readFileSync(getFixturePath(filename), 'utf8');
 
 const extentions = ['json', 'ini', 'yml'];
 
 describe('Data comparing of two configuration files:', () => {
-  const jsonResult = getFileData('expected_file_json');
-  const plainResult = getFileData('expected_file_plain');
-  const stylishResult = getFileData('expected_file_stylish');
+  const jsonResult = getFileData('expected_file_json.json');
+  const plainResult = getFileData('expected_file_plain.txt');
+  const stylishResult = getFileData('expected_file_stylish.txt');
   test.each(extentions)(
     'output format: %s', (extention) => {
       const path1 = getFixturePath(`file1.${extention}`);

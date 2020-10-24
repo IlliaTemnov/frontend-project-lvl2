@@ -15,6 +15,6 @@ export default (path1, path2, outputFormat = 'stylish') => {
   const data1 = parse(getFileData(path1), getFileExt(path1));
   const data2 = parse(getFileData(path2), getFileExt(path2));
   const diff = buildDiff(data1, data2);
-  const formattedDiff = format(outputFormat)(diff);
+  const formattedDiff = format(outputFormat, diff);
   return formattedDiff;
 };

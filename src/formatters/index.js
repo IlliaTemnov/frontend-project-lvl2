@@ -4,12 +4,12 @@ import plain from './plain.js';
 
 const formatters = { stylish, plain };
 
-export default (format) => {
-  if (format === 'json') {
-    return JSON.stringify;
+export default (outputFormat, diff) => {
+  if (outputFormat === 'json') {
+    return JSON.stringify(diff);
   }
-  if (_.has(formatters, format)) {
-    return formatters[format];
+  if (_.has(formatters, outputFormat)) {
+    return formatters[outputFormat](diff);
   }
-  throw new Error(`Unexpected format ${format}`);
+  throw new Error(`Unexpected format ${outputFormat}`);
 };

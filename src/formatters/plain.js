@@ -6,29 +6,28 @@ const stringify = (value) => {
   return `${value}`;
 };
 
-const buildPropertyName = (root, key) => `${root}${key}`;
-
 const genPlainFormat = (tree) => {
-  const genRoot = (subTree, root) => {
-    const output = subTree.flatMap((node) => {
+  const genPath = (nodes, path) => {
+    const output = nodes.flatMap((node) => {
+      const keyPath = [...path, node.key];
       switch (node.type) {
-        case 'nested':
-          return genRoot(node.children, `${buildPropertyName(root, node.key)}.`);
         case 'added':
-          return `Property '${buildPropertyName(root, node.key)}' was added with value: ${stringify(node.value)}`;
+          return `Property '${keyPath.join('.')}' was added with value: ${stringify(node.value)}`;
         case 'removed':
-          return `Property '${buildPropertyName(root, node.key)}' was removed`;
-        case 'not changed':
+          return `Property '${keyPath.join('.')}' was removed`;
+        case 'unchanged':
           return [];
         case 'changed':
-          return `Property '${buildPropertyName(root, node.key)}' was updated. From ${stringify(node.value1)} to ${stringify(node.value2)}`;
+          return `Property '${keyPath.join('.')}' was updated. From ${stringify(node.value1)} to ${stringify(node.value2)}`;
+        case 'nested':
+          return genPath(node.children, keyPath);
         default:
           throw new Error(`Unexpected type ${node.type}`);
       }
     });
     return output.join('\n');
   };
-  return genRoot(tree, '');
+  return genPath(tree, '');
 };
 
 export default genPlainFormat;

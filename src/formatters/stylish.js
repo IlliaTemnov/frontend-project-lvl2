@@ -1,17 +1,14 @@
 import _ from 'lodash';
 
-const indent = (depth, num = 0) => {
-  const tab = '  ';
-  return tab.repeat(depth + num);
-};
+const indent = (depth, spaces = 4) => ' '.repeat(depth + spaces);
 
 const stringify = (data, depth) => {
   if (!_.isPlainObject(data)) {
     return data;
   }
-  const output = _.map(data, (value, key) => `${indent(depth, 4)}${key}: ${stringify(value, depth + 2)}`);
+  const output = _.map(data, (value, key) => `${indent(depth, 4)}${key}: ${stringify(value, depth + 4)}`);
 
-  return `{\n${output.join('\n')}\n${indent(depth, 2)}}`;
+  return `{\n${output.join('\n')}\n${indent(depth, 0)}}`;
 };
 
 const genStylishFormat = (tree) => {
@@ -19,17 +16,17 @@ const genStylishFormat = (tree) => {
     const output = nodes.flatMap((node) => {
       switch (node.type) {
         case 'nested':
-          return `${indent(depth, 1)}  ${node.key}: ${addDepth(node.children, depth + 2)}`;
+          return `${indent(depth, 0)}  ${node.key}: ${addDepth(node.children, depth + 4)}`;
         case 'added':
-          return `${indent(depth, 1)}+ ${node.key}: ${stringify(node.value, depth)}`;
+          return `${indent(depth, 0)}+ ${node.key}: ${stringify(node.value, depth + 2)}`;
         case 'removed':
-          return `${indent(depth, 1)}- ${node.key}: ${stringify(node.value, depth)}`;
+          return `${indent(depth, 0)}- ${node.key}: ${stringify(node.value, depth + 2)}`;
         case 'unchanged':
-          return `${indent(depth, 1)}  ${node.key}: ${stringify(node.value, depth)}`;
+          return `${indent(depth, 0)}  ${node.key}: ${stringify(node.value, depth + 2)}`;
         case 'changed': {
           const { key, value1, value2 } = node;
-          const data1 = `${indent(depth, 1)}- ${key}: ${stringify(value1, depth)}`;
-          const data2 = `${indent(depth, 1)}+ ${key}: ${stringify(value2, depth)}`;
+          const data1 = `${indent(depth, 0)}- ${key}: ${stringify(value1, depth + 2)}`;
+          const data2 = `${indent(depth, 0)}+ ${key}: ${stringify(value2, depth + 2)}`;
           return [data1, data2];
         }
         default:
@@ -37,9 +34,9 @@ const genStylishFormat = (tree) => {
       }
     });
 
-    return `{\n${output.join('\n')}\n${indent(depth)}}`;
+    return `{\n${output.join('\n')}\n${indent(depth - 2, 0)}}`;
   };
-  return addDepth(tree, 0);
+  return addDepth(tree, 2);
 };
 
 export default genStylishFormat;

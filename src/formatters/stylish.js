@@ -1,7 +1,6 @@
 import _ from 'lodash';
 
-const startIndent = 2;
-const indent = (depth, spaces = 4) => ' '.repeat(depth === 0 ? startIndent : startIndent + depth * spaces);
+const indent = (depth, spaces = 4) => ' '.repeat(depth * spaces - 2);
 
 const stringify = (data, depth) => {
   if (!_.isPlainObject(data)) {
@@ -13,30 +12,29 @@ const stringify = (data, depth) => {
 };
 
 const genStylishFormat = (tree) => {
-  const addDepth = (nodes, depth = 0) => {
-    const output = nodes.flatMap((node) => {
-      switch (node.type) {
-        case 'nested':
-          return `${indent(depth)}  ${node.key}: {\n${addDepth(node.children, depth + 1)}\n${indent(depth)}  }`;
-        case 'added':
-          return `${indent(depth)}+ ${node.key}: ${stringify(node.value, depth)}`;
-        case 'removed':
-          return `${indent(depth)}- ${node.key}: ${stringify(node.value, depth)}`;
-        case 'unchanged':
-          return `${indent(depth)}  ${node.key}: ${stringify(node.value, depth)}`;
-        case 'changed': {
-          const { key, value1, value2 } = node;
-          const data1 = `${indent(depth)}- ${key}: ${stringify(value1, depth)}`;
-          const data2 = `${indent(depth)}+ ${key}: ${stringify(value2, depth)}`;
-          return [data1, data2];
-        }
-        default:
-          throw new Error(`Unexpected type ${node.type}`);
+  const addDepth = (node, depth = 0) => {
+    switch (node.type) {
+      case 'root':
+        return `{\n${node.children.flatMap((child) => addDepth(child, depth + 1)).join('\n')}\n}`;
+      case 'nested':
+        return `${indent(depth)}  ${node.key}: {\n${node.children.flatMap((child) => addDepth(child, depth + 1)).join('\n')}\n${indent(depth)}  }`;
+      case 'added':
+        return `${indent(depth)}+ ${node.key}: ${stringify(node.value, depth)}`;
+      case 'removed':
+        return `${indent(depth)}- ${node.key}: ${stringify(node.value, depth)}`;
+      case 'unchanged':
+        return `${indent(depth)}  ${node.key}: ${stringify(node.value, depth)}`;
+      case 'changed': {
+        const { key, value1, value2 } = node;
+        const data1 = `${indent(depth)}- ${key}: ${stringify(value1, depth)}`;
+        const data2 = `${indent(depth)}+ ${key}: ${stringify(value2, depth)}`;
+        return [data1, data2];
       }
-    });
-    return output.join('\n');
+      default:
+        throw new Error(`Unexpected type ${node.type}`);
+    }
   };
-  return `{\n${addDepth(tree)}\n}`;
+  return addDepth(tree);
 };
 
 export default genStylishFormat;

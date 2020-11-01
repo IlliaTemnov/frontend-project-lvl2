@@ -12,12 +12,13 @@ const stringify = (data, depth) => {
 };
 
 const genStylishFormat = (tree) => {
-  const addDepth = (node, depth = 0) => {
+  const iter = (node, depth = 0) => {
+    const output = () => node.children.flatMap((child) => iter(child, depth + 1)).join('\n');
     switch (node.type) {
       case 'root':
-        return `{\n${node.children.flatMap((child) => addDepth(child, depth + 1)).join('\n')}\n}`;
+        return `{\n${output()}\n}`;
       case 'nested':
-        return `${indent(depth)}  ${node.key}: {\n${node.children.flatMap((child) => addDepth(child, depth + 1)).join('\n')}\n${indent(depth)}  }`;
+        return `${indent(depth)}  ${node.key}: {\n${output()}\n${indent(depth)}  }`;
       case 'added':
         return `${indent(depth)}+ ${node.key}: ${stringify(node.value, depth)}`;
       case 'removed':
@@ -34,7 +35,7 @@ const genStylishFormat = (tree) => {
         throw new Error(`Unexpected type ${node.type}`);
     }
   };
-  return addDepth(tree);
+  return iter(tree);
 };
 
 export default genStylishFormat;

@@ -2,12 +2,10 @@ import _ from 'lodash';
 import stylish from './stylish.js';
 import plain from './plain.js';
 
-const formatters = { stylish, plain };
+const json = JSON.stringify;
+const formatters = { stylish, plain, json };
 
 export default (outputFormat, diff) => {
-  if (outputFormat === 'json') {
-    return JSON.stringify(diff);
-  }
   if (_.has(formatters, outputFormat)) {
     return formatters[outputFormat](diff);
   }

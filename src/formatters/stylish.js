@@ -13,12 +13,15 @@ const stringify = (data, depth) => {
 
 const genStylishFormat = (tree) => {
   const iter = (node, depth = 0) => {
-    const output = () => node.children.flatMap((child) => iter(child, depth + 1)).join('\n');
     switch (node.type) {
-      case 'root':
-        return `{\n${output()}\n}`;
-      case 'nested':
-        return `${indent(depth)}  ${node.key}: {\n${output()}\n${indent(depth)}  }`;
+      case 'root': {
+        const output = node.children.flatMap((child) => iter(child, depth + 1)).join('\n');
+        return `{\n${output}\n}`;
+      }
+      case 'nested': {
+        const output = node.children.flatMap((child) => iter(child, depth + 1)).join('\n');
+        return `${indent(depth)}  ${node.key}: {\n${output}\n${indent(depth)}  }`;
+      }
       case 'added':
         return `${indent(depth)}+ ${node.key}: ${stringify(node.value, depth)}`;
       case 'removed':

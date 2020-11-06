@@ -2,7 +2,7 @@ const stringify = (value) => {
   if (value === 'null') { return value; }
   if (typeof value === 'object') { return '[complex value]'; }
   if (typeof value === 'string') { return `'${value}'`; }
-  return `${value}`;
+  return value;
 };
 
 const getPropertyName = (paths, key) => [...paths, key].join('.');
